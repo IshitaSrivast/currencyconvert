@@ -62,7 +62,6 @@
             justify-content: left;
 
             gap: 8px;
-           
 
             img {
               width: 30px;
@@ -162,7 +161,7 @@
           display: flex;
           gap: 20px;
 
-          input{
+          input {
             background: inherit;
             border: none;
             outline: none;
@@ -180,10 +179,10 @@
         }
       }
 
-      .convert{
+      .convert {
         width: 160px !important;
         height: 30px;
-        background: rgba(110,66,229);
+        background: rgba(110, 66, 229);
         width: 50%;
         margin-left: 3%;
         margin-right: 10%;
@@ -198,8 +197,6 @@
         justify-content: center;
       }
     }
-
- 
   }
 
   .right {

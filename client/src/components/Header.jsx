@@ -3,15 +3,9 @@ import "./header.scss";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-
-    
-
-
-return (
+  return (
     <>
-      <div className="header">
-   
-      </div>
+      <div className="header"></div>
       <div className="line"> </div>
     </>
   );

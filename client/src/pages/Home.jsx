@@ -9,30 +9,34 @@ import {
 } from "./Utils";
 
 const Home = () => {
-  const [selectedCurr, setSelectedCurr] = useState("bitcoin");
-  const [selectedSupp, setSelectedSupp] = useState("usd");
-  const [tokenS, setTokenS] = useState(false);
-  const [popup, setPopup] = useState(false);
-  const [supportedCurrencies, setSupportedCurrencies] = useState([]);
-  const [marketData, setMarketData] = useState([]);
-  const [amount, setAmount] = useState(null);
-  const [priceDetails, setPriceDetails] = useState([]);
+  // State variables
+  const [selectedCurr, setSelectedCurr] = useState("bitcoin"); // Selected cryptocurrency
+  const [selectedSupp, setSelectedSupp] = useState("usd"); // Selected fiat currency
+  const [tokenS, setTokenS] = useState(false); // Toggle for token selection state
+  const [popup, setPopup] = useState(false); // Popup display state
+  const [supportedCurrencies, setSupportedCurrencies] = useState([]); // List of supported fiat currencies
+  const [marketData, setMarketData] = useState([]); // Market data for cryptocurrencies
+  const [amount, setAmount] = useState(null); // Amount for conversion
+  const [priceDetails, setPriceDetails] = useState([]); // Details of calculated price
 
+  // Effect hook for fetching initial data
   useEffect(() => {
     const fetchData = async () => {
+      // Fetch supported currencies if not already fetched
       if (supportedCurrencies.length === 0) {
         const supportedCurrenciesData = await fetchSupportedCurrencies();
         if (supportedCurrenciesData.error) {
-          // setError(supportedCurrenciesData.error);
+          // Handle error scenario (e.g., setError(supportedCurrenciesData.error))
         } else {
           setSupportedCurrencies(supportedCurrenciesData.fiat);
         }
       }
 
+      // Fetch market data if not already fetched
       if (marketData.length === 0) {
         const marketDataResponse = await fetchMarketData();
         if (marketDataResponse.error) {
-          //setError(marketDataResponse.error);
+          // Handle error scenario (e.g., setError(marketDataResponse.error))
         } else {
           setMarketData(marketDataResponse);
         }
@@ -41,10 +45,11 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // Function to handle currency conversion
   const convert = async () => {
     const output = await calculatePrice(selectedCurr, selectedSupp, amount);
     if (output.error) {
-      //setError(marketDataResponse.error);
+      // Handle error scenario (e.g., setError(output.error))
     } else {
       setPriceDetails(output);
     }
@@ -54,10 +59,12 @@ const Home = () => {
     <>
       <Header />
       <div className="main">
+        {/* Popup for currency and token selection */}
         {popup && (
           <div className="overlay">
             <div className="popup">
               <div className="player-list">
+                {/* Display market data or supported currencies based on tokenS state */}
                 {tokenS
                   ? marketData.map((item, index) => (
                       <div
@@ -97,10 +104,11 @@ const Home = () => {
             </div>
           </div>
         )}
-
+        {/* Main content */}
         <div className="left">
           <div className="left-inner">
             <div className="top">Currency Converter</div>
+            {/* Cryptocurrency selection */}
             <div className="currency">
               <div
                 className="item"
@@ -181,7 +189,7 @@ const Home = () => {
                 <div className="item val">{selectedCurr.toUpperCase()}</div>
               )}
             </div>
-
+            {/* Fiat currency selection */}
             <div className="currency">
               <div
                 className="item"
@@ -262,7 +270,7 @@ const Home = () => {
                 <div className="item val">{selectedSupp.toUpperCase()}</div>
               )}
             </div>
-
+            {/* Amount input */}
             <div className="currency">
               <div className="item">
                 <input
@@ -275,11 +283,12 @@ const Home = () => {
                 />
               </div>{" "}
             </div>
-
+            {/* Convert button */}
             <div className="convert" onClick={convert}>
               Convert
             </div>
 
+            {/* Displaying conversion result */}
             {priceDetails.length !== 0 && (
               <div className="currency">
                 <>

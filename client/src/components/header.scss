@@ -1,25 +1,16 @@
 .header {
-    background-color: #101828;
-    height: 5.9vh;
- 
-    
-    text-align: center;
-    display: flex;
-   
-   // border-bottom: 20px;
-    //border-color: aliceblue;
-    
-    
-    
-  }
+  background-color: #101828;
+  height: 5.9vh;
 
+  text-align: center;
+  display: flex;
 
-  .line {
+  // border-bottom: 20px;
+  //border-color: aliceblue;
+}
 
-    background-color: hsla(0,0%,100%,.1);
-    height: 0.1vh;
-    width : 100%;
-    
-  }
-
- 
+.line {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  height: 0.1vh;
+  width: 100%;
+}
