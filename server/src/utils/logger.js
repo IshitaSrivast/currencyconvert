@@ -9,9 +9,9 @@ const logger = winston.createLogger({
   ),
   transports: [
     // Write all logs with level `error` and below to `error.log`
-    new winston.transports.File({ filename: 'utils/error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'src/utils/error.log', level: 'error' }),
     // Write all logs to `combined.log`
-    new winston.transports.File({ filename: 'utils/combined.log' })
+    new winston.transports.File({ filename: 'src/utils/combined.log' })
   ]
 });
 
