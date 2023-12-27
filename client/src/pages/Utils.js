@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// Base URL of the API
-const API_BASE_URL = "http://localhost:5000/api"; // Adjust based on your server configuration
+// Use environment variable for the API base URL or default to localhost
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api";
 
 // Function to fetch supported currencies
 export const fetchSupportedCurrencies = async () => {
@@ -9,7 +9,6 @@ export const fetchSupportedCurrencies = async () => {
     const response = await axios.get(`${API_BASE_URL}/supported-currencies`);
     return response.data;
   } catch (error) {
-    // More detailed error handling
     console.error("Error fetching supported currencies:", error);
     return {
       error: error.response
@@ -25,7 +24,6 @@ export const fetchMarketData = async () => {
     const response = await axios.get(`${API_BASE_URL}/top-currencies`);
     return response.data;
   } catch (error) {
-    // More detailed error handling
     console.error("Error fetching market data:", error);
     return {
       error: error.response
@@ -47,7 +45,6 @@ export const calculatePrice = async (currency, supported, amount) => {
     );
     return response.data;
   } catch (error) {
-    // More detailed error handling
     console.error("Error calculating price:", error);
     return {
       error: error.response
