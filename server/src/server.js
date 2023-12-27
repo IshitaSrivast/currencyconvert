@@ -14,7 +14,7 @@ app.use(cors());
 // HTTP request logging middleware for node.js
 app.use(morgan('tiny')); // 'tiny' gives minimal output
 
-const swaggerDocument = YAML.load('swagger.yaml');
+const swaggerDocument = YAML.load('src/swagger.yaml');
 
 const port = 5000;
 
