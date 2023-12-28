@@ -62,7 +62,3 @@ The server codebase is organized as follows:
 - `src/services/currencyService.js`: Business logic for fetching data from the CoinGecko API and calculating prices.
 - `src/utils/logger.js`: Utility for logging with Winston.
 - `src/swagger.yaml`: Swagger configuration file for API documentation.
-
-## Credits
-
-Developed by [Your Name or Team's Name]. Utilizes the CoinGecko API for cryptocurrency data.
