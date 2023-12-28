@@ -25,19 +25,72 @@
       align-items: center;
       border-radius: 10px;
 
+      .search {
+        border-radius: 6px;
+        border: 1px solid #222b3e;
+        width: 92%;
+        //margin: 5%;
+        display: flex;
+        height: 10%;
+        margin-top: 3%;
+        //margin-bottom: 2%;
+
+        //padding: 4px;
+
+        align-items: center;
+        justify-content: center;
+
+        input {
+          background: inherit;
+          border: none;
+          outline: none;
+          font-family: "Poppins" sans-serif;
+          font-size: 15px;
+          font-weight: 300;
+          color: white;
+          width: 90%;
+        }
+      }
+
+      .player-list::-webkit-scrollbar {
+        width: 2px; /* Adjust the width of the scrollbar */
+      }
+
+      .player-list::-webkit-scrollbar-track {
+        background: inherit; /* Color of the scrollbar track */
+      }
+
+      .player-list::-webkit-scrollbar-thumb {
+        background: #888; /* Color of the scrollbar thumb */
+        border-radius: 5px; /* Roundness of the scrollbar thumb */
+      }
+
+      .player-list::-webkit-scrollbar-thumb:hover {
+        background: #555; /* Color of the scrollbar thumb when hovered */
+      }
+
       .player-list {
         display: flex;
         flex-direction: column;
         gap: 12px;
         width: 90%;
-        margin-top: 12px;
-        overflow: scroll;
-
-        //padding: 0px 10px;
+        height: 88%;
+        margin-top: 15px;
+        margin-bottom: 15px;
         padding: 5%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
         align-items: center;
 
         align-self: stretch;
+
+        .play:hover {
+          border: 3px solid hsla(0, 0%, 100%, 0.4);
+          //background: hsla(0, 0%, 100%, 0.1);
+        }
         .play {
           border-radius: 6px;
           border: 1px solid #222b3e;
@@ -108,7 +161,6 @@
 
   .left {
     width: 50%;
-
     height: 100%;
     display: flex;
     align-items: center;
@@ -117,10 +169,11 @@
     .left-inner {
       border: 1px solid hsla(0, 0%, 100%, 0.2);
       background-color: #101828;
-      height: 70%;
+      height: 60%;
       width: 70%;
       border-radius: 8px;
       display: flex;
+      //padding: 2%;
 
       flex-direction: column;
       gap: 2%;
@@ -161,6 +214,17 @@
           display: flex;
           gap: 20px;
 
+          &.head {
+            cursor: pointer;
+          }
+          &.head:hover {
+            cursor: pointer;
+            font-weight: 700;
+            //border: 2px solid hsla(0, 0%, 100%, 0.2);
+            border-radius: 5px;
+            background: hsla(0, 0%, 100%, 0.1);
+          }
+
           input {
             background: inherit;
             border: none;
@@ -173,6 +237,7 @@
 
           &.val {
             border: none;
+            //cursor: none;
             height: 35px;
             border-top: 0.2px solid hsla(0, 0%, 100%, 0.2);
           }
@@ -181,6 +246,7 @@
 
       .convert {
         width: 160px !important;
+        cursor: pointer;
         height: 30px;
         background: rgba(110, 66, 229);
         width: 50%;
@@ -199,19 +265,15 @@
     }
   }
 
-  .right {
-    width: 50%;
+  @media (max-width: 600px) {
+    .left {
+      width: 100%; /* Adjust width for mobile view */
+      height: 80%; /* Adjust height for mobile view */
+    }
 
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .inner {
-      border: 1px solid hsla(0, 0%, 100%, 0.2);
-      background-color: #101828;
+    .left .left-inner {
+      width: 90%;
       height: 70%;
-      width: 70%;
-      border-radius: 8px;
     }
   }
 }

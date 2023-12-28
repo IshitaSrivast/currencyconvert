@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import "./home.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   fetchSupportedCurrencies,
   fetchMarketData,
@@ -15,10 +15,12 @@ const Home = () => {
   const [tokenS, setTokenS] = useState(false); // Toggle for token selection state
   const [popup, setPopup] = useState(false); // Popup display state
   const [supportedCurrencies, setSupportedCurrencies] = useState([]); // List of supported fiat currencies
+  const [supportedOrig, setSupportedOrig] = useState([]);
   const [marketData, setMarketData] = useState([]); // Market data for cryptocurrencies
+  const [marketOrig, setMarketOrig] = useState([]);
   const [amount, setAmount] = useState(null); // Amount for conversion
   const [priceDetails, setPriceDetails] = useState([]); // Details of calculated price
-
+  const [searchTerm, setSearchTerm] = useState("");
   // Effect hook for fetching initial data
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +29,16 @@ const Home = () => {
         const supportedCurrenciesData = await fetchSupportedCurrencies();
         if (supportedCurrenciesData.error) {
           // Handle error scenario (e.g., setError(supportedCurrenciesData.error))
+          console.log(supportedCurrenciesData.error);
         } else {
-          setSupportedCurrencies(supportedCurrenciesData.fiat);
+          let supp = [];
+          supp = [
+            ...supportedCurrenciesData.fiat,
+            ...supportedCurrenciesData.crypto,
+            ...supportedCurrenciesData.others,
+          ];
+          setSupportedOrig(supp);
+          setSupportedCurrencies(supp);
         }
       }
 
@@ -36,8 +46,10 @@ const Home = () => {
       if (marketData.length === 0) {
         const marketDataResponse = await fetchMarketData();
         if (marketDataResponse.error) {
+          console.log(marketDataResponse.error);
           // Handle error scenario (e.g., setError(marketDataResponse.error))
         } else {
+          setMarketOrig(marketDataResponse);
           setMarketData(marketDataResponse);
         }
       }
@@ -45,10 +57,67 @@ const Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (searchTerm === "") {
+      tokenS
+        ? setMarketData(marketOrig)
+        : setSupportedCurrencies(supportedOrig);
+
+      //return
+    } else {
+      const filteredData = tokenS
+        ? marketData.filter((item) =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : supportedCurrencies.filter((item) =>
+            item.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+      tokenS
+        ? setMarketData(filteredData)
+        : setSupportedCurrencies(filteredData);
+    }
+  }, [searchTerm]);
+
+  //close the popup
+  const popupRef = useRef();
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        popup &&
+        popupRef.current &&
+        !popupRef.current.contains(event.target)
+      ) {
+        setPopup(false);
+      }
+    }
+    // Attach the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    // Clean up the event listener
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [popup]); // dependency array includes popup to re-run effect when it changes
+
   // Function to handle currency conversion
   const convert = async () => {
+    console.log(amount);
+
+    if (amount === "") {
+      //console.log("entered")
+
+      alert("Please fill in the amount first");
+      return;
+    }
+    if (isNaN(parseInt(amount))) {
+      alert("Amount must be a number");
+      return;
+    }
+
+    if (parseFloat(amount) <= 0) {
+      alert("Amount must be a positive value");
+      return;
+    }
     const output = await calculatePrice(selectedCurr, selectedSupp, amount);
     if (output.error) {
+      console.log(output.error);
       // Handle error scenario (e.g., setError(output.error))
     } else {
       setPriceDetails(output);
@@ -62,7 +131,15 @@ const Home = () => {
         {/* Popup for currency and token selection */}
         {popup && (
           <div className="overlay">
-            <div className="popup">
+            <div className="popup" ref={popupRef}>
+              <div className="search">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
               <div className="player-list">
                 {/* Display market data or supported currencies based on tokenS state */}
                 {tokenS
@@ -111,7 +188,7 @@ const Home = () => {
             {/* Cryptocurrency selection */}
             <div className="currency">
               <div
-                className="item"
+                className="item head"
                 onClick={() => {
                   setTokenS(true);
                   setPopup(true);
@@ -192,7 +269,7 @@ const Home = () => {
             {/* Fiat currency selection */}
             <div className="currency">
               <div
-                className="item"
+                className="item head"
                 onClick={() => {
                   setTokenS(false);
                   setPopup(true);
