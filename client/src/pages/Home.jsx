@@ -66,8 +66,10 @@ const Home = () => {
       //return
     } else {
       const filteredData = tokenS
-        ? marketData.filter((item) =>
-            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        ? marketData.filter(
+            (item) =>
+              item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              item.symbol.toLowerCase().includes(searchTerm.toLowerCase())
           )
         : supportedCurrencies.filter((item) =>
             item.toLowerCase().includes(searchTerm.toLowerCase())
