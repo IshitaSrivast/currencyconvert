@@ -14,7 +14,7 @@
     "yamljs": "^0.3.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node src/server.js"
   },
   "repository": {
@@ -26,5 +26,10 @@
   "bugs": {
     "url": "https://github.com/IshitaSrivast/currencyconvert/issues"
   },
-  "homepage": "https://github.com/IshitaSrivast/currencyconvert#readme"
+  "homepage": "https://github.com/IshitaSrivast/currencyconvert#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nock": "^13.4.0",
+    "supertest": "^6.3.3"
+  }
 }
