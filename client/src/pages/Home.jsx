@@ -120,6 +120,10 @@ const Home = () => {
     const output = await calculatePrice(selectedCurr, selectedSupp, amount);
     if (output.error) {
       console.log(output.error);
+      if (output.error.includes("429")) {
+  // Display an alert with the message "Too Many Requests"
+  alert("Too Many Requests");
+}
       // Handle error scenario (e.g., setError(output.error))
     } else {
       setPriceDetails(output);
