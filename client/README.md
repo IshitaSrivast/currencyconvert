@@ -49,13 +49,3 @@ Upon launching the application, users can:
 2. **Select a Fiat Currency:** Choose from a list of supported fiat currencies.
 3. **Enter Amount:** Input the amount of cryptocurrency to convert.
 4. **Convert:** Click the 'Convert' button to see the conversion result in the selected fiat currency.
-
-## Structure
-
-The application's source code is organized as follows:
-
-- `src/App.js`: The main entry point of the React application.
-- `src/pages/Home.jsx`: The main page of the app, containing the conversion logic and UI.
-- `src/pages/Utils.js`: Utility functions to fetch data from the backend API.
-- `src/components/Header`: A reusable header component.
-- `src/home.scss`: Styling for the Home component.
